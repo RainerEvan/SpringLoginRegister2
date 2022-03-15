@@ -1,0 +1,29 @@
+<p>registration works!</p>
+<div class="container">
+    <h2>Registration Form</h2>
+    <form #registerForm="ngForm" (ngSubmit)="registerUser()">
+        <small class="text-danger">{{message}}</small>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" class="form-control" placeholder="Enter email" required pattern="^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$" #email="ngModel" [(ngModel)]="user.email" [class.is-invalid]="email.invalid && email.touched">
+            <small class="text-danger" [class.d-none]="email.valid || email.untouched">Email is required</small>
+        </div>
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" class="form-control" placeholder="Enter username" required #username="ngModel" [(ngModel)]="user.username" [class.is-invalid]="username.invalid && username.touched">
+            <small class="text-danger" [class.d-none]="username.valid || username.untouched">Username is required</small>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" name="password" class="form-control" placeholder="Enter password" required #password="ngModel" [(ngModel)]="user.password" [class.is-invalid]="password.invalid && password.touched">
+            <small class="text-danger" [class.d-none]="password.valid || password.untouched">Password is required</small>
+        </div>
+        <div class="form-group">
+            <label for="password">Confirm Password</label>
+            <input type="password" name="cpassword" class="form-control" placeholder="Enter confirm password" required #cpassword="ngModel" (ngModel)="user.password" [class.is-invalid]="cpassword.invalid && cpassword.touched">
+            <small class="text-danger" [class.d-none]="(cpassword.value == password.value) || cpassword.untouched">Confirm Password must be same with Password</small>
+        </div>
+        <button [disabled]="registerForm.form.invalid" type="submit" class="btn btn-primary">Register</button>
+    </form>
+    <small [routerLink]="['/login']">Already have an account? login here</small>
+</div>
